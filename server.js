@@ -11,7 +11,7 @@ require('dotenv').config();
 
 // Dialogflow setup
 process.env.GOOGLE_APPLICATION_CREDENTIALS = './key.json';
-const projectId = '';
+const projectId = 'aiu-cg';
 const sessionClient = new dialogflow.SessionsClient();
 const sessionId = uuid.v4();
 
