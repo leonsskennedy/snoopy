@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .left-section {
+            width: 33%;
+            background: linear-gradient(to bottom, #1e3a8a, #7f1d1d);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            border-radius: 0 20px 20px 0;
+            text-align: center;
+        }
+
+        .left-section img {
+            width: 450px;
+            margin-bottom: 10px;
+        }
+
+        .stars {
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        .stars span:nth-child(2) {
+            color: #7f1d1d;
+        }
+
+        .stars span:nth-child(3) {
+            color: #1e3a8a;
+        }
+
+        .right-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fefefe;
+        }
+
+        .signup-box {
+            width: 350px;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+.signup-box h2 {
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .input-box {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .input-box input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 10px;
+            background: #7f1d1d;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+        .signup-button:hover {
+            background: #991b1b;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #7f1d1d;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="left-section">
+        <img src="logo.png" alt="AIUCG Logo">
+        <h1>Welcome to AIU-CG</h1>
+        <div class="stars">
+            <span>&#9733;</span>
+            <span>&#9733;</span>
+            <span>&#9733;</span>
+        </div>
+        <p style="font-size: large; font-weight: bold;">Explore services, academics, and your campus journey with ease.</p>
+    </div>
+
+    <div class="right-section">
+        <div class="signup-box">
+            <h2>Sign up</h2>
+            <form id="signupForm">
+                <div class="input-box">
+                    <input type="text" id="username" placeholder="Username" required 
+                           pattern="[a-zA-Z0-9_]{3,20}" 
+                           title="Username must be 3-20 characters long and can only contain letters, numbers, and underscores">
+                    <div id="username-requirements" style="font-size: 12px; color: #666; margin-top: 5px; text-align: left;">
+                        Username requirements:
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>3-20 characters long</li>
+                            <li>Only letters, numbers, and underscores</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" placeholder="Password" required
+                           pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}"
+                           title="Password must be at least 8 characters long and contain at least one letter and one number">
+                    <div id="password-requirements" style="font-size: 12px; color: #666; margin-top: 5px; text-align: left;">
+                        Password requirements:
+                        <ul style="margin: 5px 0; padding-left: 20px;">
+                            <li>At least 8 characters long</li>
+                            <li>At least one letter</li>
+                            <li>At least one number</li>
+                            <li>Can include special characters @$!%*#?&</li>
+                        </ul>
+                    </div>
+                </div>
+                <button type="submit" class="signup-button">Sign up</button>
+                <div id="error-message" style="color: red; margin-top: 10px; display: none;"></div>
+            </form>
+            <a href="index.html">Back to Home</a>
+            <a href="LogInPage.html" style="margin-top: 5px;">Already have an account? Log in</a>
+        </div>
+    </div>
+    
+    <script>
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('error-message');
+
+        function validateUsername(username) {
+            const regex = /^[a-zA-Z0-9_]{3,20}$/;
+            return regex.test(username);
+        }
+
+        function validatePassword(password) {
+            const regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+            return regex.test(password);
+        }
+
+        usernameInput.addEventListener('input', function() {
+            if (!validateUsername(this.value)) {
+                this.setCustomValidity('Username must be 3-20 characters long and can only contain letters, numbers, and underscores');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        passwordInput.addEventListener('input', function() {
+            if (!validatePassword(this.value)) {
+                this.setCustomValidity('Password must be at least 8 characters long and contain at least one letter and one number');
+            } else {
+                this.setCustomValidity('');
+            }
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const username = usernameInput.value;
+            const password = passwordInput.value;
+            
+            // Clear previous error message
+            errorMessage.style.display = 'none';
+            
+            try {
+                const response = await fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.text();
+                
+                if (response.ok) {
+                    // Signup successful
+                    errorMessage.style.color = 'green';
+                    errorMessage.textContent = 'Signup successful! Redirecting to login page...';
+                    errorMessage.style.display = 'block';
+                    
+                    // Redirect to login page after 2 seconds
+                    setTimeout(() => {
+                        window.location.href = 'LogInPage.html';
+                    }, 2000);
+                } else {
+                    // Show error message
+                    errorMessage.style.color = 'red';
+                    errorMessage.textContent = data;
+                    errorMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                errorMessage.style.color = 'red';
+                errorMessage.textContent = 'An error occurred during signup. Please try again.';
+                errorMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
